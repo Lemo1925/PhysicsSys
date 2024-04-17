@@ -35,7 +35,7 @@ public class Timer : MonoBehaviour
     private void SetTimer()
     {
         time = GameObject.Find("Sphere").GetComponent<Throw>().time;
-        rigidTime = time - 0.02f;
+        rigidTime = time - 0.01f;
     }
 
     private void RigidTimer()

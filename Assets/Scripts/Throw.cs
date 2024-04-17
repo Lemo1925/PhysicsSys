@@ -72,9 +72,9 @@ public class Throw : MonoBehaviour
     private void GetPosByTime()
     {
         var pos = transform.position;
-        var t = time - 0.02f;
-        pos += v * t + 0.5f * G * Mathf.Pow(t, 2);
-        print($"{t}秒后，位置为{pos}");
+        var t = time - 0.01f;
+        pos += v * time + 0.5f * G * Mathf.Pow(t, 2);
+        print($"{time}秒后，位置为{pos}");
         posR = pos;
         GameObject.Find("Target").transform.position = pos;
     }
