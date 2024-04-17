@@ -18,14 +18,14 @@ public class Timer : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space)) Time.timeScale = 1;
 
         if (Input.GetKeyDown(KeyCode.R)) ResetEvent?.Invoke();
-
+    
     }
 
     void FixedUpdate()
     {
         time -= Time.fixedDeltaTime;
         if (time < 0.01f * Time.fixedDeltaTime)
-        {   
+        {
             Time.timeScale = 0;
             print($"计时结束：{time}, 当前位置：{Throw.pos}, 标准位置：{Throw.staP}");
         }

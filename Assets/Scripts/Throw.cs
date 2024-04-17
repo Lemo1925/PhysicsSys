@@ -67,7 +67,7 @@ public class Throw : MonoBehaviour
         var pos = transform.position;
         pos += v * time + 0.5f * G * time * time;
         print($"{time}√Î∫Û£¨Œª÷√Œ™{pos}");
-
+        
         GameObject.Find("Target").transform.position = pos;
     }
 }
