@@ -4,9 +4,7 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     public static event Action ResetEvent;
-    float time;
-
-
+    float time, rigidTime;
     private void OnEnable() => ResetEvent += SetTimer;
 
     private void Awake() => Time.timeScale = 0;
@@ -19,19 +17,34 @@ public class Timer : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R)) ResetEvent?.Invoke();
 
+        RigidTimer();
     }
 
     void FixedUpdate()
     {
         time -= Time.fixedDeltaTime;
         if (time < 0.01f * Time.fixedDeltaTime)
-        {   
+        {
             Time.timeScale = 0;
-            print($"计时结束：{time}, 当前位置：{Throw.pos}, 标准位置：{Throw.staP}");
+            print($"计时结束：{time}, 当前位置：{Throw.pos}, 标准位置：{Throw.staP}, 计算位置：{Throw.posR}");
         }
     }
 
     private void OnDisable() => ResetEvent -= SetTimer;
 
-    private void SetTimer() => time = GameObject.Find("Sphere").GetComponent<Throw>().time;
+    private void SetTimer()
+    {
+        time = GameObject.Find("Sphere").GetComponent<Throw>().time;
+        rigidTime = time - 0.02f;
+    }
+
+    private void RigidTimer()
+    {
+        rigidTime -= Time.deltaTime;
+        if (rigidTime < 0.01f * Time.deltaTime)
+        {
+            GameObject.Find("Standard").GetComponent<Rigidbody>().isKinematic = true;
+            print($"计时结束：{time}, 当前位置：{Throw.pos}, 标准位置：{Throw.staP}, 计算位置：{Throw.posR}");
+        }
+    }
 }

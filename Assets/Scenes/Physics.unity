@@ -703,6 +703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72e0595254cfdc7419c7cc03ae00ad9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  volacity: 0
-  direction: {x: 0, y: 0, z: 0}
-  time: 1.02
+  volacity: 5
+  direction: {x: 1, y: 1, z: 0}
+  time: 10

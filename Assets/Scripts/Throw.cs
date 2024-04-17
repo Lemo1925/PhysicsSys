@@ -11,12 +11,13 @@ public class Throw : MonoBehaviour
 
     // 重力加速度矢量
     Vector3 G { get;  } = new Vector3(0, -9.81f, 0);
-    Vector3 v, positon;
+    Vector3 v, positon, standardPos;
 
     GameObject standard;
 
     public static Vector3 pos;
     public static Vector3 staP;
+    public static Vector3 posR;
 
     private void OnEnable()
     {
@@ -26,11 +27,10 @@ public class Throw : MonoBehaviour
 
     private void Awake()
     {
-        positon = transform.position;
         standard = GameObject.Find("Standard");
+        positon = transform.position;
+        standardPos = standard.transform.position;
     }
-
-    private void Start() => GetPosByTime();
 
     void FixedUpdate()
     {
@@ -53,7 +53,14 @@ public class Throw : MonoBehaviour
 
     // 设置速度矢量和初始位置
     private void SetSpeed() => v = volacity * direction.normalized;
-    private void SetPos() => transform.position = positon;
+
+    private void SetPos()
+    {
+        transform.position = positon;
+        standard.transform.position = standardPos;
+        standard.GetComponent<Rigidbody>().isKinematic = false;
+        GetPosByTime();
+    }
 
     // 抛体方程
     private void ThrowFall(float t)
@@ -65,9 +72,10 @@ public class Throw : MonoBehaviour
     private void GetPosByTime()
     {
         var pos = transform.position;
-        pos += v * time + 0.5f * G * time * time;
-        print($"{time}秒后，位置为{pos}");
-
+        var t = time - 0.02f;
+        pos += v * t + 0.5f * G * Mathf.Pow(t, 2);
+        print($"{t}秒后，位置为{pos}");
+        posR = pos;
         GameObject.Find("Target").transform.position = pos;
     }
 }
